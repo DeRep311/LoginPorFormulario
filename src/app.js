@@ -4,40 +4,49 @@ import session from 'express-session';
 import { Server as HTTPServer } from 'http';
 import path from 'path';
 import { Server as websocketServer } from "socket.io";
-import { router } from "./routes";
+import router from "./Routes/routes";
 import sockets from "./sockets";
-
-
+import yargs from 'yargs';
+import * as dotenv from 'dotenv'
+dotenv.config()
 import MongoStore from 'connect-mongo';
+import routerRandoms from "./Routes/RouterRandom";
 const advancedOptions = { useNewUrlParser: true, useUnifiedTopology: true }
 
+const args = yargs.default({
+    PORT: 8080
+}).alias({
+    p: "PORT"
+}).argv
 
 
 
 
-
-const PORT = process.env.PORT || 8080;
+const PORT = args.PORT;
 const app = express();
 app.use(session({
 
     store: MongoStore.create({
-        mongoUrl: 'mongodb+srv://DeRep:nose1234@cluster0.dc3f8gz.mongodb.net/test',
+        mongoUrl: process.env.MongoAccessSession,
         mongoOptions: advancedOptions
     }),
 
 
     secret: 'RandomCode',
     resave: false,
-    saveUninitialized: false ,
+    saveUninitialized: false,
+    rolling: true,
     cookie: {
-        maxAge: 40000
-    } 
+        maxAge: 60000
+    }
 }))
+
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json());
 app.use(cookieParser());
 app.set('port', PORT);
 app.use(router);
+// app.use('/api',routerRandoms);
 const http = new HTTPServer(app);
 const io = new websocketServer(http);
 

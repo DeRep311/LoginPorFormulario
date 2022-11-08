@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon src/index.js --exec babel-node",
+    "dev": "nodemon src/index.js --p 8089 --exec babel-node",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -24,7 +24,8 @@
     "mysql": "^2.18.1",
     "normalizr": "^3.6.2",
     "socket.io": "^4.5.2",
-    "sqlite3": "^5.1.1"
+    "sqlite3": "^5.1.1",
+    "yargs": "^17.6.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.18.10",

@@ -1,10 +1,10 @@
+//ejecucion de todo en su conjunto
 import { LoadMessage } from "./sockets.js";
-import { onHandlerSubmit } from "./UI.js";
-const Form = document.querySelector('#chatForm')
+import { NombreLog, onHandlerSubmit } from "./UI.js";
 let btn = document.getElementById('envio')
 
 LoadMessage();
-
+NombreLog();
 
 
 
@@ -21,7 +21,7 @@ function obtenerPlantilla(productos) {
 btn.addEventListener('click',onHandlerSubmit)
 
 //Productos con faker
-fetch('http://localhost:8080/api/productos-test')
+fetch('http://localhost:8089/api/productos-test')
 
     .then(response => response.json())
     .then(async json => {

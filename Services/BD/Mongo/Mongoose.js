@@ -1,10 +1,12 @@
 
 import mongoose, { Schema as _Schema, connect, model } from 'mongoose';
+import * as dotenv from 'dotenv'
+dotenv.config()
 const Schema = _Schema;
 try {
     // Connect to the MongoDB cluster
     connect(
-        'mongodb+srv://DeRep:nose1234@cluster0.dc3f8gz.mongodb.net/test',
+        process.env.MongoAccessChat,
         { useNewUrlParser: true, useUnifiedTopology: true },
         () => console.log(" Mongoose is connected")
     );
